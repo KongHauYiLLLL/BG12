@@ -1,0 +1,1997 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battlegrounds12 — Weapon Documentation</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-primary: #0a0a0f;
+        --bg-card: #16161f;
+        --bg-card-hover: #1c1c28;
+        --border: #2a2a3a;
+        --border-accent: #3a3a50;
+        --text-primary: #e8e8ed;
+        --text-secondary: #9494a8;
+        --text-muted: #606078;
+        --tier-ss: #e879f9;
+        --tier-s-plus: #ff4d6a;
+        --tier-s: #ff6b3d;
+        --tier-a: #ffb830;
+        --tier-b: #4dbaff;
+        --tier-c: #6b7280;
+        --tier-d: #4a4a5a;
+        --accent-purple: #a855f7;
+        --accent-blue: #3b82f6;
+        --accent-green: #22c55e;
+        --accent-red: #ef4444;
+        --accent-orange: #f97316;
+        --accent-yellow: #eab308;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* ===================== SHARED ===================== */
+      .hero {
+        position: relative;
+        padding: 80px 40px 48px;
+        text-align: center;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -20%;
+        width: 140%;
+        height: 200%;
+        background:
+          radial-gradient(
+            ellipse at 50% 0%,
+            rgba(168, 85, 247, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 30% 0%,
+            rgba(59, 130, 246, 0.06) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 70% 0%,
+            rgba(255, 77, 106, 0.05) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 100px;
+        background: rgba(168, 85, 247, 0.1);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        color: var(--accent-purple);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+      }
+
+      .hero-badge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-purple);
+        box-shadow: 0 0 8px var(--accent-purple);
+      }
+
+      .hero h1 {
+        font-size: 52px;
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        background: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #c8c8d8 50%,
+          #9898b0 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero p {
+        font-size: 18px;
+        color: var(--text-secondary);
+        max-width: 560px;
+        margin: 0 auto 40px;
+        line-height: 1.7;
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 10px;
+        background: rgba(168, 85, 247, 0.1);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        color: var(--accent-purple);
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        margin-top: 8px;
+      }
+
+      .back-button:hover {
+        background: rgba(168, 85, 247, 0.2);
+        border-color: rgba(168, 85, 247, 0.4);
+      }
+
+      .back-button svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 48px 40px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 40px;
+        border-top: 1px solid var(--border);
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .footer span {
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+/* ===================== SCROLLBARS HIDDEN ===================== */
+      html {
+        scrollbar-width: none;
+      }
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar,
+      *::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      /* ===================== WEAPON DOCS PAGE ===================== */
+      #page-docs .hero h1 {
+        font-size: 52px;
+      }
+
+      .search-wrapper {
+        max-width: 540px;
+        margin: 0 auto;
+      }
+
+      .search-box {
+        display: flex;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .search-box:focus-within {
+        border-color: var(--accent-purple);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+      }
+
+      .search-box input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 16px 20px;
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        color: var(--text-primary);
+      }
+
+      .search-box input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .search-box button {
+        padding: 16px 28px;
+        background: rgba(168, 85, 247, 0.15);
+        border: none;
+        border-left: 1px solid var(--border);
+        color: var(--accent-purple);
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .search-box button:hover {
+        background: rgba(168, 85, 247, 0.25);
+      }
+
+      .search-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+
+      .meta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: none;
+      }
+
+      .meta-button {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+      }
+
+      .meta-button:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: rgba(59, 130, 246, 0.4);
+      }
+
+      .yellow-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: none;
+        background: rgba(234, 179, 8, 0.1);
+        border: 1px solid rgba(234, 179, 8, 0.2);
+        color: #fbbf24;
+      }
+
+      .yellow-button:hover {
+        background: rgba(234, 179, 8, 0.2);
+        border-color: rgba(234, 179, 8, 0.4);
+      }
+
+      .red-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: none;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #f87171;
+      }
+
+      .red-button:hover {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.4);
+      }
+
+      .green-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: none;
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+        color: #4ade80;
+      }
+
+      .green-button:hover {
+        background: rgba(34, 197, 94, 0.2);
+        border-color: rgba(34, 197, 94, 0.4);
+      }
+
+      .purple-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: none;
+        background: rgba(168, 85, 247, 0.1);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        color: #c084fc;
+      }
+
+      .purple-button:hover {
+        background: rgba(168, 85, 247, 0.2);
+        border-color: rgba(168, 85, 247, 0.4);
+      }
+
+      #page-docs .container {
+        max-width: 700px;
+        min-height: 300px;
+      }
+
+      .result-area {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .weapon-result {
+        width: 100%;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 36px;
+        position: relative;
+        overflow: hidden;
+        animation: fadeUp 0.3s ease;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .weapon-result::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+
+      .weapon-result.tier-ss::before {
+        background: linear-gradient(90deg, var(--tier-ss), transparent 70%);
+      }
+      .weapon-result.tier-s-plus::before {
+        background: linear-gradient(90deg, var(--tier-s-plus), transparent 70%);
+      }
+      .weapon-result.tier-s::before {
+        background: linear-gradient(90deg, var(--tier-s), transparent 70%);
+      }
+      .weapon-result.tier-a::before {
+        background: linear-gradient(90deg, var(--tier-a), transparent 70%);
+      }
+      .weapon-result.tier-b::before {
+        background: linear-gradient(90deg, var(--tier-b), transparent 70%);
+      }
+      .weapon-result.tier-c::before {
+        background: linear-gradient(90deg, var(--tier-c), transparent 70%);
+      }
+      .weapon-result.tier-d::before {
+        background: linear-gradient(90deg, var(--tier-d), transparent 70%);
+      }
+
+      .result-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .result-name {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+      }
+
+      .result-tier {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+
+      .result-tier.ss {
+        background: rgba(232, 121, 249, 0.15);
+        color: var(--tier-ss);
+      }
+      .result-tier.s-plus {
+        background: rgba(255, 77, 106, 0.15);
+        color: var(--tier-s-plus);
+      }
+      .result-tier.s {
+        background: rgba(255, 107, 61, 0.15);
+        color: var(--tier-s);
+      }
+      .result-tier.a {
+        background: rgba(255, 184, 48, 0.15);
+        color: var(--tier-a);
+      }
+      .result-tier.b {
+        background: rgba(77, 186, 255, 0.15);
+        color: var(--tier-b);
+      }
+      .result-tier.c {
+        background: rgba(107, 114, 128, 0.15);
+        color: var(--tier-c);
+      }
+      .result-tier.d {
+        background: rgba(74, 74, 90, 0.15);
+        color: var(--tier-d);
+      }
+
+      .result-category {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 28px;
+      }
+
+      .result-section {
+        margin-bottom: 24px;
+      }
+      .result-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .result-section-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 12px;
+      }
+
+      .result-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .result-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .result-tag.fighter {
+        background: #301518;
+        border: 1px solid #7f1d1d;
+        color: #fca5a5;
+      }
+      .result-tag.assassin {
+        background: #1c1330;
+        border: 1px solid #4c1d95;
+        color: #d8b4fe;
+      }
+      .result-tag.control {
+        background: #0c1a2e;
+        border: 1px solid #1e3a5f;
+        color: #93c5fd;
+      }
+      .result-tag.support {
+        background: #12291b;
+        border: 1px solid #166534;
+        color: #86efac;
+      }
+      .result-tag.effect {
+        background: rgba(148, 163, 184, 0.1);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        color: #cbd5e1;
+      }
+
+      .result-difficulty {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .result-difficulty-track {
+        flex: 1;
+        height: 7px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 4px;
+        overflow: hidden;
+        max-width: 180px;
+      }
+
+      .result-difficulty-fill {
+        height: 100%;
+        border-radius: 4px;
+      }
+      .fill-extreme-low {
+        width: 10%;
+        background: #22c55e;
+      }
+      .fill-medium {
+        width: 45%;
+        background: #facc15;
+      }
+      .fill-low {
+        width: 25%;
+        background: #4ade80;
+      }
+      .fill-medium-high {
+        width: 60%;
+        background: #fbbf24;
+      }
+      .fill-high {
+        width: 80%;
+        background: #f97316;
+      }
+      .fill-extreme-high {
+        width: 95%;
+        background: #ef4444;
+      }
+
+      .result-difficulty-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        white-space: nowrap;
+      }
+
+      .result-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 24px 0;
+      }
+
+      .error-message {
+        text-align: center;
+        padding: 60px 20px;
+        animation: fadeUp 0.3s ease;
+      }
+      .error-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.3;
+      }
+      .error-message h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+      }
+      .error-message p {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .weapon-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+        justify-content: center;
+      }
+
+      .weapon-list-item {
+        padding: 6px 14px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .weapon-list-item:hover {
+        background: rgba(168, 85, 247, 0.1);
+        border-color: rgba(168, 85, 247, 0.3);
+        color: var(--accent-purple);
+      }
+
+      .weapon-list-item.selected {
+        background: rgba(168, 85, 247, 0.18);
+        border-color: rgba(168, 85, 247, 0.5);
+        color: var(--accent-purple);
+      }
+
+      /* ===================== META PAGE ===================== */
+      #page-meta .hero h1 {
+        font-size: 48px;
+      }
+      #page-meta .hero p {
+        margin-bottom: 20px;
+      }
+
+      .meta-section {
+        margin-bottom: 48px;
+      }
+      .meta-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .section-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .section-icon.win-rate {
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.25);
+      }
+      .section-icon.pick-rate {
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.25);
+      }
+      .section-icon.banned {
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+      }
+      .section-icon.unrated {
+        background: rgba(107, 114, 128, 0.12);
+        border: 1px solid rgba(107, 114, 128, 0.25);
+      }
+      .section-icon.meta-icon {
+        background: rgba(168, 85, 247, 0.12);
+        border: 1px solid rgba(168, 85, 247, 0.25);
+      }
+
+      .section-header h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+      }
+      .section-header .section-sub {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .ranked-list {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .ranked-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s ease;
+      }
+
+      .ranked-item:last-child {
+        border-bottom: none;
+      }
+      .ranked-item:hover {
+        background: var(--bg-card-hover);
+      }
+
+      .rank-number {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 16px;
+        font-weight: 700;
+        width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .rank-number.gold {
+        color: #fbbf24;
+      }
+      .rank-number.silver {
+        color: #94a3b8;
+      }
+      .rank-number.bronze {
+        color: #d97706;
+      }
+
+      .rank-info {
+        flex: 1;
+      }
+      .rank-name {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .rank-detail {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      .rank-badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 6px;
+        white-space: nowrap;
+      }
+
+      .badge-green {
+        background: rgba(34, 197, 94, 0.12);
+        color: #4ade80;
+        border: 1px solid rgba(34, 197, 94, 0.2);
+      }
+      .badge-blue {
+        background: rgba(59, 130, 246, 0.12);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+      }
+      .badge-red {
+        background: rgba(239, 68, 68, 0.12);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
+      .badge-purple {
+        background: rgba(168, 85, 247, 0.12);
+        color: #c084fc;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+      }
+
+      .meta-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .meta-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-purple),
+          var(--accent-blue),
+          transparent 70%
+        );
+      }
+
+      .meta-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+
+      .meta-value {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        margin-bottom: 10px;
+      }
+
+      .meta-examples {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .meta-example-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        background: rgba(168, 85, 247, 0.08);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        color: #c4b5fd;
+      }
+
+      .meta-updated {
+        margin-top: 16px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .meta-updated span {
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 40px 0;
+      }
+
+      /* ===================== RANKS PAGE ===================== */
+      #page-ranks .hero h1 {
+        font-size: 48px;
+      }
+      #page-ranks .hero p {
+        margin-bottom: 20px;
+      }
+
+      .ranks-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .rank-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.2s ease;
+      }
+
+      .rank-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent);
+        transform: translateY(-2px);
+      }
+
+      .rank-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+
+      .rank-card.mythical::before {
+        background: linear-gradient(90deg, #a855f7, transparent 70%);
+      }
+      .rank-card.honor::before {
+        background: linear-gradient(90deg, #fbbf24, transparent 70%);
+      }
+      .rank-card.ht::before {
+        background: linear-gradient(90deg, #a855f7, transparent 70%);
+      }
+      .rank-card.lt::before {
+        background: linear-gradient(90deg, #3b82f6, transparent 70%);
+      }
+      .rank-card.bt::before {
+        background: linear-gradient(90deg, #6b7280, transparent 70%);
+      }
+      .rank-card.case::before {
+        background: linear-gradient(90deg, #f97316, transparent 70%);
+      }
+      .rank-card.fighter::before {
+        background: linear-gradient(90deg, #ef4444, transparent 70%);
+      }
+      .rank-card.assassin::before {
+        background: linear-gradient(90deg, #a855f7, transparent 70%);
+      }
+      .rank-card.control::before {
+        background: linear-gradient(90deg, #3b82f6, transparent 70%);
+      }
+      .rank-card.support::before {
+        background: linear-gradient(90deg, #22c55e, transparent 70%);
+      }
+      .rank-card.technical::before {
+        background: linear-gradient(90deg, #fb923c, transparent 70%);
+      }
+      .rank-card.magic::before {
+        background: linear-gradient(90deg, #22c55e, transparent 70%);
+      }
+
+      .circuit-section {
+        margin-bottom: 36px;
+      }
+
+      .circuit-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .circuit-section-title {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .circuit-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+      }
+
+      .circuit-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent);
+        transform: translateY(-1px);
+      }
+
+      .circuit-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .circuit-card-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.2px;
+      }
+
+      .circuit-card-date {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--accent-blue);
+        white-space: nowrap;
+        background: rgba(59, 130, 246, 0.1);
+        padding: 4px 12px;
+        border-radius: 6px;
+        border: 1px solid rgba(59, 130, 246, 0.15);
+      }
+
+      .rank-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+
+      .rank-name {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+      }
+
+      .rank-badge-pill {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .rank-card.mythical .rank-badge-pill {
+        background: rgba(168, 85, 247, 0.15);
+        color: #c084fc;
+        border: 1px solid rgba(168, 85, 247, 0.25);
+      }
+      .rank-card.honor .rank-badge-pill {
+        background: rgba(251, 191, 36, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.25);
+      }
+      .rank-card.ht .rank-badge-pill {
+        background: rgba(168, 85, 247, 0.15);
+        color: #c4b5fd;
+        border: 1px solid rgba(168, 85, 247, 0.25);
+      }
+      .rank-card.lt .rank-badge-pill {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.25);
+      }
+      .rank-card.bt .rank-badge-pill {
+        background: rgba(107, 114, 128, 0.15);
+        color: #9ca3af;
+        border: 1px solid rgba(107, 114, 128, 0.25);
+      }
+
+      .rank-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      .rank-honor-count {
+        margin-top: 32px;
+        text-align: center;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+      }
+
+      .rank-honor-count .count-number {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 32px;
+        font-weight: 900;
+        color: #fbbf24;
+      }
+
+      .rank-honor-count .count-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      /* ===================== RESPONSIVE ===================== */
+      @media (max-width: 768px) {
+        .hero {
+          padding: 48px 20px 36px;
+        }
+        .hero h1 {
+          font-size: 32px;
+        }
+        .hero p {
+          font-size: 15px;
+        }
+        .container {
+          padding: 32px 16px;
+        }
+        .weapon-result {
+          padding: 24px;
+        }
+        .result-name {
+          font-size: 22px;
+        }
+        .ranked-item {
+          padding: 14px 18px;
+        }
+      }
+    </style>
+  <base target="_blank">
+</head>
+  <body>
+    <!-- ======================== PAGE: WEAPON DOCS ======================== -->
+    <div id="page-docs" class="page active">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">Community Reference</div>
+          <h1>Battlegrounds12<br />Weapon Docs</h1>
+          <p>
+            Search any weapon to see its tier, type, and difficulty at
+            a glance.
+          </p>
+          <div class="search-wrapper">
+            <div class="search-box">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search a weapon..."
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button onclick="searchWeapon()">Search</button>
+            </div>
+            <div class="search-actions">
+              <button class="meta-button" onclick="showPage('meta')">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  width="15"
+                  height="15"
+                >
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+                Meta
+              </button>
+              <button class="red-button" onclick="showPage('ranks')">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  width="15"
+                  height="15"
+                >
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7" />
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7" />
+                  <path d="M4 22h16" />
+                  <path d="M10 22V7l-3 3" />
+                  <path d="M14 22V7l3 3" />
+                  <path d="M12 22V2l1 2-1 2-1-2 1-2" />
+                </svg>
+                Ranks
+              </button></button><button class="purple-button" onclick="showPage('pro')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 16.9 6.1 20.2l1.3-6.6L2.5 9l6.6-.8L12 2z"/></svg>Pro</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="result-area" id="resultArea"></div>
+      </div>
+      <footer class="footer">
+        <span>Battlegrounds12</span> &mdash; Weapon Documentation &mdash;
+        Community Reference
+      </footer>
+    </div>
+
+    <!-- ======================== PAGE: META ======================== -->
+    <div id="page-meta" class="page">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">Updated Monthly</div>
+          <h1>Latest Meta</h1>
+          <p>
+            Current weapon rankings, pick rates, bans, and the dominant
+            playstyle in Battlegrounds12.
+          </p>
+          <button class="back-button" onclick="showPage('docs')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+            Back to Weapon Docs
+          </button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="meta-section">
+          <div class="section-header">
+            <div class="section-icon meta-icon">&#9876;</div>
+            <div>
+              <h2>Best Weapons <span class="section-sub">by Role</span></h2>
+            </div>
+          </div>
+          <div class="ranked-list">
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Dagger</div>
+                <div class="rank-detail">Offensive Magic &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-red">Fighter</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Guitar</div>
+                <div class="rank-detail">Offensive Magic &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-red">Fighter</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Laser Sword</div>
+                <div class="rank-detail">Offensive Balance &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-red">Fighter</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Spear</div>
+                <div class="rank-detail">Offensive Technical &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-red">Fighter</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Plasma</div>
+                <div class="rank-detail">Offensive Technical &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-red">Fighter</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Guitar</div>
+                <div class="rank-detail">Offensive Magic &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-blue">Control</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Gauntlet</div>
+                <div class="rank-detail">Balanced Magic &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-blue">Control</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Lance</div>
+                <div class="rank-detail">Full Balanced &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-blue">Control</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Gun</div>
+                <div class="rank-detail">Offensive Technical &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-purple">Assassin</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Bomb</div>
+                <div class="rank-detail">Balanced Magic &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-purple">Assassin</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Plasma</div>
+                <div class="rank-detail">Offensive Technical &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-purple">Assassin</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Sniper</div>
+                <div class="rank-detail">Offensive Technical &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-purple">Assassin</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Lance</div>
+                <div class="rank-detail">Full Balanced &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-green">Support</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Gauntlet</div>
+                <div class="rank-detail">Balanced Magic &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-green">Support</div>
+            </div>
+            <div class="ranked-item">
+              
+              <div class="rank-info">
+                <div class="rank-name">Pickaxe</div>
+                <div class="rank-detail">Balanced Magic &middot; A Tier</div>
+              </div>
+              <div class="rank-badge badge-green">Support</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta-section">
+          <div class="section-header">
+            <div class="section-icon win-rate">&#9650;</div>
+            <div>
+              <h2>Best Weapons <span class="section-sub">by Win Rate</span></h2>
+            </div>
+          </div>
+          <div class="ranked-list">
+            <div class="ranked-item">
+              <div class="rank-number gold">1</div>
+              <div class="rank-info">
+                <div class="rank-name">Plasma</div>
+                <div class="rank-detail">Offensive Technical &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-green">59.1%</div>
+            </div>
+            <div class="ranked-item">
+              <div class="rank-number silver">2</div>
+              <div class="rank-info">
+                <div class="rank-name">Lance</div>
+                <div class="rank-detail">Full Balanced &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-green">58.3%</div>
+            </div>
+            <div class="ranked-item">
+              <div class="rank-number bronze">3</div>
+              <div class="rank-info">
+                <div class="rank-name">Sniper</div>
+                <div class="rank-detail">Offensive Technical &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-green">56.2%</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta-section">
+          <div class="section-header">
+            <div class="section-icon banned">&#10006;</div>
+            <div>
+              <h2>
+                Most Banned Weapons
+                <span class="section-sub">Banned in 1v1 or 2v2 Ranked Matches</span>
+              </h2>
+            </div>
+          </div>
+          <div class="ranked-list">
+            <div class="ranked-item">
+              <div class="rank-number gold">1</div>
+              <div class="rank-info">
+                <div class="rank-name">Spear</div>
+                <div class="rank-detail">Offensive Technical &middot; S Tier</div>
+              </div>
+              <div class="rank-badge badge-red">59.6%</div>
+            </div>
+            <div class="ranked-item">
+              <div class="rank-number silver">2</div>
+              <div class="rank-info">
+                <div class="rank-name">Guitar</div>
+                <div class="rank-detail">Offensive Magic &middot; SS Tier</div>
+              </div>
+              <div class="rank-badge badge-red">58.3%</div>
+            </div>
+            <div class="ranked-item">
+              <div class="rank-number bronze">3</div>
+              <div class="rank-info">
+                <div class="rank-name">Grapple</div>
+                <div class="rank-detail">Offensive Technical &middot; A Tier</div>
+              </div>
+              <div class="rank-badge badge-red">55.5%</div>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="meta-section">
+          <div class="section-header">
+            <div class="section-icon meta-icon">&#9830;</div>
+            <div>
+              <h2>
+                Latest Meta <span class="section-sub">Updated Monthly</span>
+              </h2>
+            </div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Dominant Playstyle</div>
+            <div class="meta-value">Offensive Magic</div>
+            <div class="meta-examples">
+              <span class="meta-example-tag">Guitar</span>
+              <span class="meta-example-tag">Dagger</span>
+              <span class="meta-example-tag">Scythe</span>
+            </div>
+            <div class="meta-updated">
+              Last updated: <span>November 14, 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <span>Battlegrounds12</span> &mdash; Meta Report &mdash; Community
+        Reference
+      </footer>
+    </div>
+
+    
+    <!-- ======================== PAGE: RANKS ======================== -->
+    <div id="page-ranks" class="page">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">Player Tiers</div>
+          <h1>Ranks</h1>
+          <p>
+            The five player tiers that define skill level in Battlegrounds12.
+          </p>
+          <button class="back-button" onclick="showPage('docs')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+            Back to Weapon Docs
+          </button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="ranks-grid">
+          <div class="rank-card mythical">
+            <div class="rank-header">
+              <div class="rank-name" style="color: #a855f7">Mythical</div>
+              <div class="rank-badge-pill">Highest</div>
+            </div>
+            <div class="rank-desc">
+              The highest tier a player can reach. Reserved for legendary
+              players who changed the meta or invented new techniques in
+              Battlegrounds12.
+            </div>
+          </div>
+          <div class="rank-card honor">
+            <div class="rank-header">
+              <div class="rank-name" style="color: #fbbf24">Honor</div>
+              <div class="rank-badge-pill">Second Highest</div>
+            </div>
+            <div class="rank-desc">
+              One of the highest tiers for a player. Reserved for the elite
+              few who have mastered the game.
+            </div>
+          </div>
+          <div class="rank-card ht">
+            <div class="rank-header">
+              <div class="rank-name" style="color: #c4b5fd">HT</div>
+              <div class="rank-badge-pill">Above Average</div>
+            </div>
+            <div class="rank-desc">
+              The second highest tier, meaning a player is well above average.
+              Strong fundamentals and specialised skill.
+            </div>
+          </div>
+          <div class="rank-card lt">
+            <div class="rank-header">
+              <div class="rank-name" style="color: #60a5fa">LT</div>
+              <div class="rank-badge-pill">Standard</div>
+            </div>
+            <div class="rank-desc">
+              The standard tier for players who can play but don't excel. The
+              normies.
+            </div>
+          </div>
+          <div class="rank-card bt">
+            <div class="rank-header">
+              <div class="rank-name" style="color: #9ca3af">BT</div>
+              <div class="rank-badge-pill">Bottom</div>
+            </div>
+            <div class="rank-desc">
+              The bottom tier. These players need improvement and are still
+              learning the ropes.
+            </div>
+          </div>
+        </div>
+        <div class="rank-honor-count">
+          <div class="count-number">42</div>
+          <div class="count-label">Honor Players Currently</div>
+        </div>
+      </div>
+      <footer class="footer">
+        <span>Battlegrounds12</span> &mdash; Ranks &mdash; Community Reference
+      </footer>
+    </div>
+
+    <!-- ======================== PAGE: PRO ======================== -->
+    <div id="page-pro" class="page">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">Professional Play</div>
+          <h1>Pro Picks</h1>
+          <p>The best weapons in professional play, ranked for 2v2 ranked matches.</p>
+          <button class="back-button" onclick="showPage('docs')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+            Back to Weapon Docs
+          </button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="meta-section">
+          <div class="section-header">
+            <div class="section-icon meta-icon">&#9876;</div>
+            <div>
+              <h2>Best Weapons <span class="section-sub">Professional Play &middot; 2v2 Ranked</span></h2>
+            </div>
+          </div>
+          <div class="ranked-list">
+            <div class="ranked-item"><div class="rank-number gold">1</div><div class="rank-info"><div class="rank-name">Scythe</div><div class="rank-detail">Good Attack/Defend Capability and Hooks &middot; Offensive Magic &middot; B Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number silver">2</div><div class="rank-info"><div class="rank-name">Grapple</div><div class="rank-detail">Excellent Movement, Damage, and Survivability &middot; Offensive Technical &middot; A Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number bronze">3</div><div class="rank-info"><div class="rank-name">Gun</div><div class="rank-detail">High Assassin Burst Damage &middot; Offensive Technical &middot; S Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number" style="color: var(--text-muted)">4</div><div class="rank-info"><div class="rank-name">Bomb</div><div class="rank-detail">High unpredictable Burst Damage &middot; Balanced Magic &middot; S Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number" style="color: var(--text-muted)">5</div><div class="rank-info"><div class="rank-name">Laser Sword</div><div class="rank-detail">Combines high Damage, Knockback, and CC &middot; Offensive Balance &middot; SS Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number" style="color: var(--text-muted)">6</div><div class="rank-info"><div class="rank-name">Guitar</div><div class="rank-detail">Good counter to most Assassins and good CC &middot; Offensive Magic &middot; SS Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number" style="color: var(--text-muted)">7</div><div class="rank-info"><div class="rank-name">Gloves</div><div class="rank-detail">Excellent Burst Damage (multiple targets) and Attack/Defend capabilities &middot; Offensive Technical &middot; B Tier</div></div><div class="rank-badge badge-purple">Pro</div></div><div class="ranked-item"><div class="rank-number" style="color: var(--text-muted)">8</div><div class="rank-info"><div class="rank-name">Lance</div><div class="rank-detail">Highest level of CC and Sustainability &middot; Full Balanced &middot; S Tier</div></div><div class="rank-badge badge-purple">Pro</div></div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <span>Battlegrounds12</span> &mdash; Pro Picks &mdash; Community Reference
+      </footer>
+    </div>
+
+    <script>
+      /* ===================== NAVIGATION ===================== */
+      let currentPage = "docs";
+
+      function showPage(page) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + page).classList.add("active");
+        currentPage = page;
+        window.scrollTo(0, 0);
+      }
+
+      /* ===================== WEAPON DOCS ===================== */
+      const weapons = [
+        {
+                "name": "Sword",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Flashpoint"
+        },
+        {
+                "name": "Hammer",
+                "tier": "C",
+                "tierClass": "c",
+                "category": "Defensive Technical",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Grapple",
+                "tier": "A",
+                "tierClass": "a",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Skyhook"
+        },
+        {
+                "name": "Gun",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Assassin"
+                ]
+        },
+        {
+                "name": "Scepter",
+                "tier": "A",
+                "tierClass": "a",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Support"
+                ],
+                "ability": "Wall of Nature"
+        },
+        {
+                "name": "Flail",
+                "tier": "C",
+                "tierClass": "c",
+                "category": "Balanced Technical",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Gloves",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Knockout"
+        },
+        {
+                "name": "Ice Cream",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Offensive Magic",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Ice Spikes"
+        },
+        {
+                "name": "Boots",
+                "tier": "D",
+                "tierClass": "d",
+                "category": "Defensive Technical",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Dagger",
+                "tier": "SS",
+                "tierClass": "ss",
+                "category": "Offensive Magic",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Blade of the Skies"
+        },
+        {
+                "name": "Guitar",
+                "tier": "SS",
+                "tierClass": "ss",
+                "category": "Offensive Magic",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Sound Barrier"
+        },
+        {
+                "name": "Katana",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Offensive Balance",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Dragon Warrior"
+        },
+        {
+                "name": "Bomb",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Assassin"
+                ],
+                "ability": "Armageddon"
+        },
+        {
+                "name": "Portal Gun",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Assassin"
+                ]
+        },
+        {
+                "name": "Scythe",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Offensive Magic",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Call of the Wind"
+        },
+        {
+                "name": "Plasma",
+                "tier": "SS",
+                "tierClass": "ss",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Assassin"
+                ],
+                "ability": "Starfall"
+        },
+        {
+                "name": "Axe",
+                "tier": "A",
+                "tierClass": "a",
+                "category": "Offensive Magic",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Skyfall"
+        },
+        {
+                "name": "Lance",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Full Balanced",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Sniper",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Assassin"
+                ],
+                "ability": "The Judge"
+        },
+        {
+                "name": "Shield",
+                "tier": "C",
+                "tierClass": "c",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Gauntlet",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Spear",
+                "tier": "S",
+                "tierClass": "s",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "Sky Piercer"
+        },
+        {
+                "name": "Laser Sword",
+                "tier": "SS",
+                "tierClass": "ss",
+                "category": "Offensive Balance",
+                "roles": [
+                        "Fighter"
+                ],
+                "ability": "The All in One"
+        },
+        {
+                "name": "Bazooka",
+                "tier": "A",
+                "tierClass": "a",
+                "category": "Full Balanced",
+                "roles": [
+                        "Assassin"
+                ],
+                "ability": "Potassium Shooter"
+        },
+        {
+                "name": "Pickaxe",
+                "tier": "A",
+                "tierClass": "a",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Support"
+                ]
+        },
+        {
+                "name": "Shuriken",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Offensive Technical",
+                "roles": [
+                        "Assassin"
+                ],
+                "ability": "Immortal Cloud"
+        },
+        {
+                "name": "Iron Hand",
+                "tier": "C",
+                "tierClass": "c",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Fighter"
+                ]
+        },
+        {
+                "name": "Paintbrush",
+                "tier": "B",
+                "tierClass": "b",
+                "category": "Balanced Magic",
+                "roles": [
+                        "Support"
+                ]
+        }
+];
+
+      function findWeapon(query) {
+        const q = query.toLowerCase().trim();
+        return weapons.find(
+          (w) =>
+            w.name.toLowerCase() === q ||
+            (w.aliases && w.aliases.some((a) => a.toLowerCase() === q)) ||
+            w.name.toLowerCase().includes(q),
+        );
+      }
+
+      function renderWeapon(weapon) {
+        const abilityBlock = weapon.ability
+          ? `<div class="result-divider"></div><div class="result-section"><div class="result-section-label">Ability</div><div class="result-tags"><span class="result-tag effect">&quot;${weapon.ability}&quot;</span></div></div>`
+          : "";
+        return `<div class="weapon-result tier-${weapon.tierClass}"><div class="result-header"><div class="result-name">${weapon.name}</div><div class="result-tier ${weapon.tierClass}">${weapon.tier}</div></div><div class="result-category">${weapon.category}</div><div class="result-section"><div class="result-section-label">Weapon Type</div><div class="result-tags">${weapon.roles.map((r) => `<span class="result-tag ${r.toLowerCase()}">${r}</span>`).join("")}</div></div>${abilityBlock}</div>`;
+      }
+
+      function renderError(query) {
+        return `<div class="error-message"><div class="error-icon">&#x2716;</div><h3>No weapon found</h3><p>"${query}" doesn't match any weapon in the database.</p><div class="weapon-list">${weapons.map((w) => `<div class="weapon-list-item" onclick="selectWeapon('${w.name}')">${w.name}</div>`).join("")}</div></div>`;
+      }
+
+      const META_EXPORT = `BATTLEGROUNDS12 - CURRENT META (Updated Monthly, last updated November 14, 2026)
+
+BEST WEAPONS BY ROLE
+Fighter: Dagger, Guitar, Laser Sword, Spear, Plasma
+Control: Guitar, Gauntlet, Lance
+Assassin: Gun, Bomb, Plasma, Sniper
+Support: Lance, Gauntlet, Pickaxe
+
+BEST WEAPONS BY WIN RATE
+1. Plasma - 59.1%
+2. Lance - 58.3%
+3. Sniper - 56.2%
+
+MOST BANNED WEAPONS (Banned in 1v1 or 2v2 Ranked Matches)
+1. Spear - 59.6%
+2. Guitar - 58.3%
+3. Grapple - 55.5%
+
+LATEST META
+Dominant Playstyle: Offensive Magic`;
+
+      function buildSecretExport() {
+        const lines = weapons.map(
+          (w) =>
+            `${w.name} | ${w.tier} Tier | ${w.category} | ${w.roles.join("/")}${w.ability ? ` | Ability: "${w.ability}"` : ""}`,
+        );
+        return `${META_EXPORT}\n\n=== WEAPON LIST (${weapons.length} weapons) ===\n${lines.join("\n")}`;
+      }
+
+      function copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+        } catch (e) {}
+        document.body.removeChild(ta);
+      }
+
+      function searchWeapon() {
+        const input = document.getElementById("searchInput").value;
+        const area = document.getElementById("resultArea");
+        if (!input.trim()) {
+          area.innerHTML = "";
+          return;
+        }
+        if (input.trim().toLowerCase() === "badger") {
+          copyToClipboard(buildSecretExport());
+          area.innerHTML = `<div class="error-message"><div class="error-icon">&#10003;</div><h3>Copied to clipboard</h3><p>The full weapon list and current meta have been exported.</p></div>`;
+          document.getElementById("searchInput").value = "";
+          return;
+        }
+        const weapon = findWeapon(input);
+        area.innerHTML = weapon ? renderWeapon(weapon) : renderError(input);
+      }
+
+      function selectWeapon(name) {
+        document.getElementById("searchInput").value = name;
+        searchWeapon();
+      }
+
+      document
+        .getElementById("searchInput")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") searchWeapon();
+        });
+    </script>
+  </body>
+</html>
